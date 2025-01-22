@@ -1,3 +1,13 @@
+## TBD
+
+* Updated Dependencies
+* Bumped Flutter min Version to 3.22.0 and Dart SDK min Version to 3.4.0
+* Gradle: Bumped compileSdkVersion to 33
+* Gradle: Specified buildToolsVersion to 33.0.1
+* Gradle: Replaced jcenter with mavenCentral
+* Gradle: Specified source/targetCompatibility and jvmTarget to 1.8
+
+
 ## 2.2.6
 
 * Fixed SDK contraints for Flutter 4.0.0

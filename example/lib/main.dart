@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rtmp_broadcaster/camera.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class CameraExampleHome extends StatefulWidget {
   @override
@@ -50,15 +50,10 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
   bool isVisible = true;
 
   bool get isControllerInitialized => controller?.value.isInitialized ?? false;
-
   bool get isStreamingVideoRtmp => controller?.value.isStreamingVideoRtmp ?? false;
-
   bool get isRecordingVideo => controller?.value.isRecordingVideo ?? false;
-
   bool get isRecordingPaused => controller?.value.isRecordingPaused ?? false;
-
   bool get isStreamingPaused => controller?.value.isStreamingPaused ?? false;
-
   bool get isTakingPicture => controller?.value.isTakingPicture ?? false;
 
   @override
@@ -70,7 +65,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    Wakelock.disable();
+    WakelockPlus.disable();
     super.dispose();
   }
 
@@ -152,7 +147,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     );
   }
 
-  /// Display the preview from the camera (or a message if the preview is not available).
+  /// Display camera preview (or a message if the preview is not available).
   Widget _cameraPreviewWidget() {
     if (controller == null || !isControllerInitialized) {
       return const Text(
@@ -259,7 +254,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     );
   }
 
-  /// Display a row of toggle to select the camera (or a message if no camera is available).
+  /// Display a row of toggles to select the camera (or a message if no camera is available).
   Widget _cameraTogglesRowWidget() {
     final List<Widget> toggles = <Widget>[];
 
@@ -356,7 +351,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     startVideoRecording().then((String? filePath) {
       if (mounted) setState(() {});
       showInSnackBar('Saving video to $filePath');
-      Wakelock.enable();
+      WakelockPlus.enable();
     });
   }
 
@@ -364,7 +359,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     startVideoStreaming().then((String? url) {
       if (mounted) setState(() {});
       showInSnackBar('Streaming video to $url');
-      Wakelock.enable();
+      WakelockPlus.enable();
     });
   }
 
@@ -372,7 +367,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
     startRecordingAndVideoStreaming().then((String? url) {
       if (mounted) setState(() {});
       showInSnackBar('Recording streaming video to $url');
-      Wakelock.enable();
+      WakelockPlus.enable();
     });
   }
 
@@ -388,7 +383,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome> with WidgetsBindi
         showInSnackBar('Video recorded to: $videoPath');
       });
     }
-    Wakelock.disable();
+    WakelockPlus.disable();
   }
 
   void onPauseButtonPressed() {
